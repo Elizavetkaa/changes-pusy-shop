@@ -150,11 +150,22 @@ window.addEventListener('load', () => {
     renderItems(currentItems);
 });
 
+searchInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+        performSearch();
+    }
+});
+
 searchBtn.addEventListener('click', () => {
+    performSearch();
+});
+
+function performSearch() {
     const query = searchInput.value.trim().toLowerCase();
 
-    if (query === '') {
+    sortSelect.value = 'alphabet';
 
+    if (query === '') {
         currentItems = [...items];
     } else {
         currentItems = items.filter(item => item.title.toLowerCase().includes(query));
@@ -163,7 +174,7 @@ searchBtn.addEventListener('click', () => {
     currentItems = sortItems(currentItems, sortSelect.value);
 
     renderItems(currentItems);
-});
+}
 
 sortSelect.addEventListener('change', () => {
     currentItems = sortItems(currentItems, sortSelect.value);
